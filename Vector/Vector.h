@@ -35,6 +35,7 @@ namespace PB_C {
 		Vector& operator=(const Vector& other);
 
 		T& operator[](const int& index) const;
+		const T& operator[](const int& index) const;
 
 		Vector& operator+(const T& k);
 		Vector& operator+(const Vector& vec);
@@ -55,10 +56,9 @@ namespace PB_C {
 		Vector& operator+=(const Vector& vec);
 
 		Vector& operator-=(const int& k);
-
 		Vector& operator-=(const Vector& vec);
-		Vector& operator*=(const int& k);
 
+		Vector& operator*=(const int& k);
 		Vector& operator*=(const Vector& vec);
 
 		bool operator==(const Vector& vec);
@@ -69,7 +69,9 @@ namespace PB_C {
 		friend std::ostream& operator<<(std::ostream& os, const Vector& vec);
 
 
-		~Vector();
+		~Vector() {
+			delete[] data;
+		}
 	};
 }
 #endif // !PB_VECTOR
