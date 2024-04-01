@@ -128,11 +128,26 @@ namespace PB_C {
 	}
 	template<typename T>
 	Vector<T>& Vector<T>::operator+=(const Vector& vec) {
-		Vector<T> temp_vec = *this;
+		/*Vector<T> temp_vec = *this;
+		std::cout << temp_vec << std::endl;
+		std::cout << vec << std::endl;
 		delete[] data;
 		data = new T[temp_vec.size + vec.size];
 		std::copy(temp_vec.begin(), temp_vec.end(), data);
 		std::copy(vec.begin(), vec.end(), data + temp_vec.size);
+
+		return *this;*/
+
+		int temp_size = size;
+		size += vec.size;
+		T* temp_data = new T[size];
+
+		std::copy(data, data + temp_size, temp_data);
+
+		std::copy(vec.data, vec.data + vec.size, temp_data + temp_size);
+
+		delete[] data;
+		data = temp_data;
 
 		return *this;
 	}
