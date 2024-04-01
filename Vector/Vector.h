@@ -1,77 +1,69 @@
 #pragma once
 #ifndef PB_VECTOR
 #define PB_VECTOR
+
 #include <iostream>
 #include <string>
 #include <cassert>
 #include <algorithm>
+
 namespace PB_C {
-	template<typename T>
-	class Vector {
-	private:
-		int size;
-		T* data;
+    template<typename T>
+    class Vector {
+    private:
+        int size;
+        T* data;
 
-	public:
-		Vector() : size(0), data(nullptr) {}
+    public:
+        Vector();
+        explicit Vector(int size);
+        Vector(const std::initializer_list<T>& array);
+        Vector(const Vector& other);
+        ~Vector();
 
-		explicit Vector(int size) : size(size) {
-			data = new T[size];
-			for (int i = 0; i < size; ++i)
-				data[i] = T();
-		}
+        T* begin() const;
+        T* end() const;
 
-		Vector(const std::initializer_list<T>& array) : size(array.size()) {
-			data = new T[size];
-			std::copy(array.begin(), array.end(), data);
-		}
+        Vector& operator=(const Vector& other);
+        T& operator[](const int& index);
+        const T& operator[](const int& index) const;
 
-		Vector(const Vector& other) : size(other.size);
+        Vector& operator+(const T& k);
+        Vector& operator+(const Vector& vec);
 
+        Vector& operator-(const T& k);
+        Vector& operator-(const Vector& vec);
 
-		T* begin() const;
-		T* end() const;
+        Vector& operator*(const T& k);
+        Vector& operator*(const Vector& vec);
 
-		Vector& operator=(const Vector& other);
+        Vector& operator+=(const T& k);
+        Vector& operator+=(const Vector& vec);
 
-		T& operator[](const int& index) const;
-		const T& operator[](const int& index) const;
+        Vector& operator-=(const int& k);
+        Vector& operator-=(const Vector& vec);
 
-		Vector& operator+(const T& k);
-		Vector& operator+(const Vector& vec);
+        Vector& operator*=(const int& k);
+        Vector& operator*=(const Vector& vec);
 
+        bool operator==(const Vector& vec) const;
+        bool operator!=(const Vector& vec) const;
 
+        int length() const;
 
-		Vector& operator-(const T& k);
-		Vector& operator-(const Vector& vec);
+        template<typename T>
+        friend std::ostream& operator<<(std::ostream& os, const Vector<T>& vec);
+    };
 
-
-
-		Vector& operator*(const T& k);
-		Vector& operator*(const Vector& vec);
-
-
-
-		Vector& operator+=(const T& k);
-		Vector& operator+=(const Vector& vec);
-
-		Vector& operator-=(const int& k);
-		Vector& operator-=(const Vector& vec);
-
-		Vector& operator*=(const int& k);
-		Vector& operator*=(const Vector& vec);
-
-		bool operator==(const Vector& vec);
-		bool operator!=(const Vector& vec);
-
-		int lenght() const;
-
-		friend std::ostream& operator<<(std::ostream& os, const Vector& vec);
-
-
-		~Vector() {
-			delete[] data;
-		}
-	};
+    template<typename T>
+    std::ostream& operator<<(std::ostream& os, const Vector<T>& vec) {
+        os << "[ ";
+        for (int i = 0; i < vec.length(); ++i) {
+            os << vec[i] << " ";
+        }
+        os << "]";
+        return os;
+    }
 }
+
 #endif // !PB_VECTOR

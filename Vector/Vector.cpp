@@ -2,6 +2,34 @@
 
 
 namespace PB_C {
+
+	template<typename T>
+	Vector<T>::Vector() : size(0), data(nullptr) {}
+
+	template<typename T>
+	Vector<T>::Vector(int size) : size(size) {
+		data = new T[size];
+		for (int i = 0; i < size; ++i)
+			data[i] = T();
+	}
+
+	template<typename T>
+	Vector<T>::Vector(const std::initializer_list<T>& array) : size(array.size()) {
+		data = new T[size];
+		std::copy(array.begin(), array.end(), data);
+	}
+
+	template<typename T>
+	Vector<T>::Vector(const Vector& other) : size(other.size) {
+		data = new T[size];
+		std::copy_n(other.data, size, data);
+	}
+
+	template<typename T>
+	Vector<T>::~Vector() {
+		delete[] data;
+	}
+
 	template<typename T>
 	T* Vector<T>::begin() const {
 		return data;
@@ -12,7 +40,7 @@ namespace PB_C {
 	}
 
 	template<typename T>
-	int Vector<T>::lenght() const {
+	int Vector<T>::length() const {
 		return size;
 	}
 
@@ -29,12 +57,12 @@ namespace PB_C {
 	}
 
 	template<typename T>
-	T& Vector<T>::operator[](const int& index) const {
+	T& Vector<T>::operator[](const int& index) {
 		assert(index >= 0 && index < size);
 		return data[index];
 	}
 	template<typename T>
-	T& Vector<T>::operator[](const int& index) const {
+	const T& Vector<T>::operator[](const int& index) const {
 		assert(index >= 0 && index < size);
 		return data[index];
 	}
@@ -171,7 +199,7 @@ namespace PB_C {
 	}
 
 	template<typename T>
-	bool Vector<T>::operator==(const Vector& vec) {
+	bool Vector<T>::operator==(const Vector& vec) const{
 		if (size != vec.size) {
 			return false;
 		}
@@ -183,7 +211,7 @@ namespace PB_C {
 		return true;
 	}
 	template<typename T>
-	bool Vector<T>::operator!=(const Vector& vec) {
+	bool Vector<T>::operator!=(const Vector& vec) const {
 		if (size != vec.size) {
 			return true;
 		}
@@ -195,14 +223,21 @@ namespace PB_C {
 		return false;
 	}
 
-	template<typename T>
+	/*template<typename T>
 	std::ostream& operator<<(std::ostream& os, const Vector<T>& vec) {
 		os << "[ ";
-		for (const T& c : vec) {
-			os << c << " ";
+		for (int i = 0; i < vec.length(); ++i) {
+			os << vec[i] << " ";
 		}
-		os << "]" << std::endl;
+		os << "]";
 		return os;
-	}
+	}*/
 
 }
+
+
+template class PB_C::Vector<int>;
+template class PB_C::Vector<double>;
+template class PB_C::Vector<float>;
+template class PB_C::Vector<char>;
+
