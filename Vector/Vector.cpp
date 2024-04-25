@@ -238,6 +238,27 @@ namespace PB_C {
 		return false;
 	}
 
+
+	Vector<std::string>& Vector<std::string>::operator-(const std::string& k) {
+		return *this;
+	}
+
+	Vector<std::string>& Vector<std::string>::operator-(const Vector& vec) {
+		return *this;
+	}
+
+	Vector<std::string>& Vector<std::string>::operator*(const std::string& k) {
+		return *this;
+	}
+
+	Vector<std::string>& Vector<std::string>::operator*(const Vector& vec) {
+		return *this;
+	}
+
+	Vector<std::string>& Vector<std::string>::operator*=(const Vector& vec) {
+		return *this;
+	}
+
 	/*template<typename T>
 	std::ostream& operator<<(std::ostream& os, const Vector<T>& vec) {
 		os << "[ ";
@@ -248,6 +269,10 @@ namespace PB_C {
 		return os;
 	}*/
 
+
+
+
+
 }
 
 
@@ -255,4 +280,6 @@ template class PB_C::Vector<int>;
 template class PB_C::Vector<double>;
 template class PB_C::Vector<float>;
 template class PB_C::Vector<char>;
+template class PB_C::Vector<std::string>;
+
 

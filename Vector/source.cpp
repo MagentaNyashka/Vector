@@ -1,8 +1,14 @@
-//#include "Vector.h"
 #include <iostream>
+#include "Vector.h"
+
+using namespace PB_C;
 
 int main() {
-	std::cout << "bruh";
+	Vector<int> a = { 1, 2, 3 };
 
+	a -= 3;
+
+	std::cout << a << std::endl;
+	
 	return 0;
 }
